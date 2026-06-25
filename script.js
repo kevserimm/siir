@@ -265,3 +265,51 @@ function resetAll() {
   updateProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+// ═══════════════════════════════════════
+// BÖLÜM 5 — DİNLEME (Web Speech API)
+// ═══════════════════════════════════════
+
+let listenUtterance = null;
+
+function playListenText() {
+  if (!('speechSynthesis' in window)) {
+    alert('Tarayıcınız sesli okumayı desteklemiyor. Lütfen Chrome veya Edge kullanın.');
+    return;
+  }
+  window.speechSynthesis.cancel(); // önceki varsa durdur
+
+  const text = document.getElementById('listen-text').innerText.trim();
+  listenUtterance = new SpeechSynthesisUtterance(text);
+  listenUtterance.lang = 'de-DE';
+  listenUtterance.rate = 0.9;  // biraz yavaş — sınav için ideal
+  listenUtterance.pitch = 1;
+
+  const status = document.getElementById('listen-status');
+  const btnStop = document.getElementById('btn-stop');
+  const btnListen = document.getElementById('btn-listen');
+
+  listenUtterance.onstart = () => {
+    status.textContent = '🔊 Metin okunuyor...';
+    btnStop.disabled = false;
+    btnListen.disabled = true;
+  };
+  listenUtterance.onend = () => {
+    status.textContent = '✅ Dinleme tamamlandı. Soruları cevaplayabilirsiniz.';
+    btnStop.disabled = true;
+    btnListen.disabled = false;
+  };
+  listenUtterance.onerror = () => {
+    status.textContent = '⚠️ Ses yüklenemedi. Lütfen tekrar deneyin.';
+    btnStop.disabled = true;
+    btnListen.disabled = false;
+  };
+
+  window.speechSynthesis.speak(listenUtterance);
+}
+
+function stopListenText() {
+  window.speechSynthesis.cancel();
+  document.getElementById('listen-status').textContent = '⏹ Durduruldu.';
+  document.getElementById('btn-stop').disabled = true;
+  document.getElementById('btn-listen').disabled = false;
+}
