@@ -1,780 +1,98 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Almanca A1-A2 Sınavı</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seninle Güzel</title>
+    <meta name="description" content="Her gün değişen, sadece sana özel bir şiir ve güzel söz." />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@200;300;400&display=swap"
+        rel="stylesheet" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-<header>
-  <div class="header-flag">🇩🇪</div>
-  <h1>Almanca A1–A2 Sınavı</h1>
-  <p>Cümle Kurma · Geçmiş Zaman · Ayrılabilen Fiiller · Tarihler · Mevsimler · Paragraf · Dinleme</p>
-</header>
+    <canvas id="three-canvas"></canvas>
 
-<div class="progress-wrap">
-  <div class="progress-bar-outer">
-    <div class="progress-bar-inner" id="progressBar"></div>
-  </div>
-  <div class="progress-label" id="progressLabel">0 / 0 soru cevaplandı</div>
-</div>
+    <div class="site">
 
-<main>
+        <!-- HEADER -->
+        <header id="hdr">
+            <div class="logo-ring"><span>✦</span></div>
+            <h1 class="site-title">Her şey seninle ve senin için</h1>
+            <div class="date-pill">
+                <span class="dot"></span>
+                <span id="today-date"></span>
+            </div>
+        </header>
 
-<!-- ═══════════════════════════════════════════
-     BÖLÜM 1 — CÜMLE KURMA (Şimdiki / Geniş / Geçmiş)
-     ═══════════════════════════════════════════ -->
-<div class="section-block">
-  <div class="section-header">
-    <span class="section-badge">Bölüm 1</span>
-    <h2>Cümle Kurma</h2>
-    <span class="pts">6 soru · 12 puan</span>
-  </div>
+        <!-- ŞİİR -->
+        <div class="divider" id="div1"><span>Bugünün Şiiri</span></div>
 
-  <div class="theory-box">
-    <h3>📘 Hatırlatma</h3>
-    <p>Verilen kelimeleri doğru sıraya diz. <strong>Präsens</strong>: fiil 2. konumda. <strong>Perfekt</strong>: yardımcı fiil 2. konumda, Partizip II en sonda. <strong>Präteritum</strong>: war/waren/hatte/hatten doğrudan çekimlenir.</p>
-  </div>
+        <div class="card" id="poem-card">
+            <div class="card-glow"></div>
+            <div class="card-tag">Şiirden bir damla</div>
+            <div id="poem-author"></div>
+            <div id="poem-title"></div>
+            <div id="poem-text"></div>
+        </div>
 
-  <div class="questions-wrap" id="sent-wrap">
+        <!-- SÖZ -->
+        <div class="divider" id="div2"><span>Bugünün Sözü</span></div>
 
-    <div class="q-item" data-type="fill" data-answer="Ich lerne jeden Tag Deutsch.">
-      <div class="q-num">S01 — Präsens (Şimdiki Zaman)</div>
-      <div class="q-text">Kelimeleri sıraya diz: <strong>jeden Tag / lerne / Deutsch / Ich</strong></div>
-      <input class="fill-input wide" placeholder="Cümleyi yaz..." data-answer="Ich lerne jeden Tag Deutsch.">
-      <div class="q-feedback"></div>
+        <div class="card" id="quote-card">
+            <div class="card-glow"></div>
+            <div class="card-tag">Kalpten bir söz</div>
+            <span class="quote-mark">&ldquo;</span>
+            <div id="quote-text"></div>
+            <div id="quote-source"></div>
+        </div>
+
+        <!-- COUNTDOWN -->
+        <div class="divider" id="div3"><span>Yeni Güne Kalan</span></div>
+
+        <div class="card countdown-card" id="cd-card">
+            <div class="card-glow"></div>
+            <div class="countdown-label">Yeni şiir ve söz için kalan süre</div>
+            <div class="cd-grid">
+                <div class="cd-unit">
+                    <div class="cd-num" id="cd-h">00</div>
+                    <div class="cd-word">saat</div>
+                </div>
+                <div class="cd-sep">:</div>
+                <div class="cd-unit">
+                    <div class="cd-num" id="cd-m">00</div>
+                    <div class="cd-word">dakika</div>
+                </div>
+                <div class="cd-sep">:</div>
+                <div class="cd-unit">
+                    <div class="cd-num" id="cd-s">00</div>
+                    <div class="cd-word">saniye</div>
+                </div>
+            </div>
+        </div>
+
+        <footer id="ftr">Seninle olan her an, geçmişin en güzeli oldu &nbsp;<em>♥</em>&nbsp; Yarın da böyle olacak
+        </footer>
+
     </div>
 
-    <div class="q-item" data-type="fill" data-answer="Wir fahren im Sommer nach Berlin.">
-      <div class="q-num">S02 — Präsens (Geniş Zaman)</div>
-      <div class="q-text">Kelimeleri sıraya diz: <strong>fahren / im Sommer / nach Berlin / Wir</strong></div>
-      <input class="fill-input wide" placeholder="Cümleyi yaz..." data-answer="Wir fahren im Sommer nach Berlin.">
-      <div class="q-feedback"></div>
-    </div>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- App -->
+    <script src="script.js"></script>
 
-    <div class="q-item" data-type="fill" data-answer="Er hat gestern einen Film gesehen.">
-      <div class="q-num">S03 — Perfekt (Geçmiş Zaman)</div>
-      <div class="q-text">Kelimeleri sıraya diz: <strong>gesehen / hat / gestern / Er / einen Film</strong></div>
-      <input class="fill-input wide" placeholder="Cümleyi yaz..." data-answer="Er hat gestern einen Film gesehen.">
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="Wir sind letztes Jahr nach Istanbul geflogen.">
-      <div class="q-num">S04 — Perfekt (sein ile)</div>
-      <div class="q-text">Kelimeleri sıraya diz: <strong>geflogen / letztes Jahr / sind / nach Istanbul / Wir</strong></div>
-      <input class="fill-input wide" placeholder="Cümleyi yaz..." data-answer="Wir sind letztes Jahr nach Istanbul geflogen.">
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="Sie hat am Montag ihre Freundin angerufen.">
-      <div class="q-num">S05 — Perfekt (ayrılabilen fiil)</div>
-      <div class="q-text">Kelimeleri sıraya diz: <strong>angerufen / am Montag / hat / ihre Freundin / Sie</strong></div>
-      <input class="fill-input wide" placeholder="Cümleyi yaz..." data-answer="Sie hat am Montag ihre Freundin angerufen.">
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="Heute Morgen stehe ich um 7 Uhr auf.">
-      <div class="q-num">S06 — Präsens (ayrılabilen fiil, inversion)</div>
-      <div class="q-text">Kelimeleri sıraya diz: <strong>stehe / Heute Morgen / auf / um 7 Uhr / ich</strong></div>
-      <input class="fill-input wide" placeholder="Cümleyi yaz..." data-answer="Heute Morgen stehe ich um 7 Uhr auf.">
-      <div class="q-feedback"></div>
-    </div>
-
-  </div>
-  <div class="submit-area">
-    <button class="btn-check" onclick="checkSection('sent')">Bu bölümü kontrol et</button>
-    <button class="btn-reset" onclick="resetSection('sent')">Sıfırla</button>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════
-     BÖLÜM 2 — war / hatte BOŞLUK DOLDURMA
-     ═══════════════════════════════════════════ -->
-<div class="section-block">
-  <div class="section-header">
-    <span class="section-badge">Bölüm 2</span>
-    <h2>war / waren / hatte / hatten — Boşluk Doldurma</h2>
-    <span class="pts">8 soru · 16 puan</span>
-  </div>
-
-  <div class="theory-box">
-    <h3>📘 Hatırlatma</h3>
-    <ul>
-      <li><strong>war</strong> = ich / er / sie / es war &nbsp;|&nbsp; <strong>waren</strong> = wir / sie / Sie waren</li>
-      <li><strong>hatte</strong> = ich / er / sie / es hatte &nbsp;|&nbsp; <strong>hatten</strong> = wir / sie / Sie hatten</li>
-    </ul>
-  </div>
-
-  <div class="questions-wrap" id="warh-wrap">
-
-    <div class="q-item" data-type="fill" data-answer="war">
-      <div class="q-num">S07</div>
-      <div class="fill-wrap">
-        <span>Das Wetter gestern</span>
-        <input class="fill-input" placeholder="___" data-answer="war">
-        <span>sehr schön.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="waren">
-      <div class="q-num">S08</div>
-      <div class="fill-wrap">
-        <span>Wir</span>
-        <input class="fill-input" placeholder="___" data-answer="waren">
-        <span>letztes Jahr in Wien.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="hatte">
-      <div class="q-num">S09</div>
-      <div class="fill-wrap">
-        <span>Er</span>
-        <input class="fill-input" placeholder="___" data-answer="hatte">
-        <span>als Kind einen Hund.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="hatten">
-      <div class="q-num">S10</div>
-      <div class="fill-wrap">
-        <span>Wir</span>
-        <input class="fill-input" placeholder="___" data-answer="hatten">
-        <span>im Urlaub viel Spaß.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="war">
-      <div class="q-num">S11</div>
-      <div class="fill-wrap">
-        <span>Die Party</span>
-        <input class="fill-input" placeholder="___" data-answer="war">
-        <span>wirklich toll.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="hatte">
-      <div class="q-num">S12</div>
-      <div class="fill-wrap">
-        <span>Ich</span>
-        <input class="fill-input" placeholder="___" data-answer="hatte">
-        <span>gestern keine Zeit.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="waren">
-      <div class="q-num">S13</div>
-      <div class="fill-wrap">
-        <span>Die Kinder</span>
-        <input class="fill-input" placeholder="___" data-answer="waren">
-        <span>sehr müde nach der Schule.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="hatten">
-      <div class="q-num">S14</div>
-      <div class="fill-wrap">
-        <span>Sie (pl.)</span>
-        <input class="fill-input" placeholder="___" data-answer="hatten">
-        <span>früher kein Auto.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-  </div>
-  <div class="submit-area">
-    <button class="btn-check" onclick="checkSection('warh')">Bu bölümü kontrol et</button>
-    <button class="btn-reset" onclick="resetSection('warh')">Sıfırla</button>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════
-     BÖLÜM 3 — AYRILABILEN FİİLLER (Perfekt + Präsens)
-     ═══════════════════════════════════════════ -->
-<div class="section-block">
-  <div class="section-header">
-    <span class="section-badge">Bölüm 3</span>
-    <h2>Ayrılabilen Fiiller — Boşluk Doldurma &amp; Cümle Kurma</h2>
-    <span class="pts">8 soru · 16 puan</span>
-  </div>
-
-  <div class="theory-box">
-    <h3>📘 Hatırlatma</h3>
-    <ul>
-      <li><strong>Präsens</strong>: Fiil 2. konumda çekimlenir, ön ek en sona gider. → <em>Ich rufe dich an.</em></li>
-      <li><strong>Perfekt</strong>: haben/sein + ge<em>[ön ek arasına girer]</em>t/en → <em>Ich habe angerufen.</em></li>
-    </ul>
-    <p style="margin-top:0.5rem;">Önemli fiiller: <strong>aufstehen, anrufen, einkaufen, fernsehen, aufräumen, abfahren, mitkommen, zurückkommen</strong></p>
-  </div>
-
-  <div class="questions-wrap" id="sep-wrap">
-
-    <div class="q-item" data-type="fill2" data-answer1="stehe" data-answer2="auf">
-      <div class="q-num">S15 — Präsens: aufstehen</div>
-      <div class="fill-wrap">
-        <span>Ich</span>
-        <input class="fill-input" placeholder="___" data-answer="stehe">
-        <span>jeden Morgen um 6 Uhr</span>
-        <input class="fill-input" placeholder="___" data-answer="auf">
-        <span>.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill2" data-answer1="kauft" data-answer2="ein">
-      <div class="q-num">S16 — Präsens: einkaufen</div>
-      <div class="fill-wrap">
-        <span>Er</span>
-        <input class="fill-input" placeholder="___" data-answer="kauft">
-        <span>samstags im Supermarkt</span>
-        <input class="fill-input" placeholder="___" data-answer="ein">
-        <span>.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill2" data-answer1="sieht" data-answer2="fern">
-      <div class="q-num">S17 — Präsens: fernsehen</div>
-      <div class="fill-wrap">
-        <span>Sie</span>
-        <input class="fill-input" placeholder="___" data-answer="sieht">
-        <span>abends oft</span>
-        <input class="fill-input" placeholder="___" data-answer="fern">
-        <span>.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill2" data-answer1="hat" data-answer2="aufgestanden">
-      <div class="q-num">S18 — Perfekt: aufstehen</div>
-      <div class="fill-wrap">
-        <span>Er</span>
-        <input class="fill-input" placeholder="___" data-answer="hat">
-        <span>heute sehr früh</span>
-        <input class="fill-input" placeholder="___" data-answer="aufgestanden">
-        <span>.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill2" data-answer1="haben" data-answer2="eingekauft">
-      <div class="q-num">S19 — Perfekt: einkaufen</div>
-      <div class="fill-wrap">
-        <span>Wir</span>
-        <input class="fill-input" placeholder="___" data-answer="haben">
-        <span>gestern viel</span>
-        <input class="fill-input" placeholder="___" data-answer="eingekauft">
-        <span>.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill2" data-answer1="ist" data-answer2="zurückgekommen">
-      <div class="q-num">S20 — Perfekt: zurückkommen</div>
-      <div class="fill-wrap">
-        <span>Sie</span>
-        <input class="fill-input" placeholder="___" data-answer="ist">
-        <span>spät nach Hause</span>
-        <input class="fill-input" placeholder="___" data-answer="zurückgekommen">
-        <span>.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="Er ist um 8 Uhr abgefahren.">
-      <div class="q-num">S21 — Cümle Kur: Perfekt (abfahren)</div>
-      <div class="q-text">Verilen bilgiyle cümle kur: <strong>er / um 8 Uhr / abfahren (Perfekt)</strong></div>
-      <input class="fill-input wide" placeholder="Cümleyi yaz..." data-answer="Er ist um 8 Uhr abgefahren.">
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="Kommst du heute mit?">
-      <div class="q-num">S22 — Cümle Kur: Präsens soru (mitkommen)</div>
-      <div class="q-text">Verilen bilgiyle soru cümlesi kur: <strong>du / heute / mitkommen (Präsens, soru)</strong></div>
-      <input class="fill-input wide" placeholder="Cümleyi yaz..." data-answer="Kommst du heute mit?">
-      <div class="q-feedback"></div>
-    </div>
-
-  </div>
-  <div class="submit-area">
-    <button class="btn-check" onclick="checkSection('sep')">Bu bölümü kontrol et</button>
-    <button class="btn-reset" onclick="resetSection('sep')">Sıfırla</button>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════
-     BÖLÜM 4 — am / im / um BOŞLUK DOLDURMA
-     ═══════════════════════════════════════════ -->
-<div class="section-block">
-  <div class="section-header">
-    <span class="section-badge">Bölüm 4</span>
-    <h2>am · im · um — Zaman Edatları</h2>
-    <span class="pts">6 soru · 12 puan</span>
-  </div>
-
-  <div class="theory-box">
-    <h3>📘 Hatırlatma</h3>
-    <ul>
-      <li><strong>am</strong> → günler &amp; tarihler: <em>am Montag, am 3. Mai</em></li>
-      <li><strong>im</strong> → aylar &amp; mevsimler: <em>im Juli, im Winter</em></li>
-      <li><strong>um</strong> → saatler: <em>um 9 Uhr, um Mitternacht</em></li>
-    </ul>
-  </div>
-
-  <div class="questions-wrap" id="prep-wrap">
-
-    <div class="q-item" data-type="fill" data-answer="um">
-      <div class="q-num">S23</div>
-      <div class="fill-wrap">
-        <span>Der Zug fährt</span>
-        <input class="fill-input" placeholder="___" data-answer="um">
-        <span>14:30 Uhr ab.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="im">
-      <div class="q-num">S24</div>
-      <div class="fill-wrap">
-        <span>Meine Familie reist</span>
-        <input class="fill-input" placeholder="___" data-answer="im">
-        <span>Herbst in die Türkei.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="am">
-      <div class="q-num">S25</div>
-      <div class="fill-wrap">
-        <span>Ich habe</span>
-        <input class="fill-input" placeholder="___" data-answer="am">
-        <span>Freitag einen Arzttermin.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="im">
-      <div class="q-num">S26</div>
-      <div class="fill-wrap">
-        <span>Er ist</span>
-        <input class="fill-input" placeholder="___" data-answer="im">
-        <span>März geboren.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="am">
-      <div class="q-num">S27</div>
-      <div class="fill-wrap">
-        <span>Das Konzert beginnt</span>
-        <input class="fill-input" placeholder="___" data-answer="am">
-        <span>Samstag.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="um">
-      <div class="q-num">S28</div>
-      <div class="fill-wrap">
-        <span>Wir essen</span>
-        <input class="fill-input" placeholder="___" data-answer="um">
-        <span>12 Uhr zu Mittag.</span>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-  </div>
-  <div class="submit-area">
-    <button class="btn-check" onclick="checkSection('prep')">Bu bölümü kontrol et</button>
-    <button class="btn-reset" onclick="resetSection('prep')">Sıfırla</button>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════
-     BÖLÜM 5 — TARİHLERİN OKUNUŞU VE YAZILIŞI
-     ═══════════════════════════════════════════ -->
-<div class="section-block">
-  <div class="section-header">
-    <span class="section-badge">Bölüm 5</span>
-    <h2>Tarihlerin Okunuşu &amp; Yazılışı</h2>
-    <span class="pts">6 soru · 12 puan</span>
-  </div>
-
-  <div class="theory-box">
-    <h3>📘 Hatırlatma</h3>
-    <ul>
-      <li><strong>1900–1999</strong>: iki grup halinde → 1997 = <em>neunzehnhundertsiebenundneunzig</em></li>
-      <li><strong>2000</strong>: <em>zweitausend</em></li>
-      <li><strong>2001–2009</strong>: zweitausend + sayı → 2005 = <em>zweitausendfünf</em></li>
-      <li><strong>2010+</strong>: iki grup veya zweitausend+... → 2026 = <em>zweitausendundzwanzig</em> veya <em>zweitausend(und)sechsundzwanzig</em></li>
-    </ul>
-  </div>
-
-  <div class="questions-wrap" id="date-wrap">
-
-    <div class="q-item" data-type="mc" data-answer="B">
-      <div class="q-num">S29 — 1990 hangi şekilde okunur?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> neunzehnneunzig</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> neunzehnhundertneunzig</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> neunhundertneunzig</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> neunzehnhundert und neunzig</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="C">
-      <div class="q-num">S30 — 1997 hangi şekilde okunur?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> neunzehnhundertsiebzehn</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> neunzehnhundertneunundsiebzig</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> neunzehnhundertsiebenundneunzig</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> neunzehnhundertsieben</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="A">
-      <div class="q-num">S31 — 2005 hangi şekilde okunur?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> zweitausendfünf</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> zweitausendundfünfzehn</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> zwanzighundertfünf</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> zweitausend und fünfhundert</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="D">
-      <div class="q-num">S32 — 2026 hangi şekilde okunur?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> zweitausendundzwanzig</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> zwanzigsechsundzwanzig</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> zweitausendundsechzehn</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> zweitausendundsechsundzwanzig</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="neunzehnhundert">
-      <div class="q-num">S33 — 1900 yılını Almanca yaz (tek kelime)</div>
-      <input class="fill-input wide" placeholder="___" data-answer="neunzehnhundert">
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="zweitausend">
-      <div class="q-num">S34 — 2000 yılını Almanca yaz (tek kelime)</div>
-      <input class="fill-input wide" placeholder="___" data-answer="zweitausend">
-      <div class="q-feedback"></div>
-    </div>
-
-  </div>
-  <div class="submit-area">
-    <button class="btn-check" onclick="checkSection('date')">Bu bölümü kontrol et</button>
-    <button class="btn-reset" onclick="resetSection('date')">Sıfırla</button>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════
-     BÖLÜM 6 — MEVSİMLERİ AYLARLA EŞLEŞTİRME
-     ═══════════════════════════════════════════ -->
-<div class="section-block">
-  <div class="section-header">
-    <span class="section-badge">Bölüm 6</span>
-    <h2>Mevsimler &amp; Aylar — Eşleştirme</h2>
-    <span class="pts">6 soru · 6 puan</span>
-  </div>
-
-  <div class="theory-box">
-    <h3>📘 Hatırlatma</h3>
-    <p><strong>Frühling</strong> (İlkbahar): März, April, Mai &nbsp;·&nbsp; <strong>Sommer</strong> (Yaz): Juni, Juli, August &nbsp;·&nbsp; <strong>Herbst</strong> (Sonbahar): September, Oktober, November &nbsp;·&nbsp; <strong>Winter</strong> (Kış): Dezember, Januar, Februar</p>
-  </div>
-
-  <div class="questions-wrap" id="season-wrap">
-
-    <div class="q-item" data-type="mc" data-answer="C">
-      <div class="q-num">S35 — Juli hangi mevsime aittir?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Frühling</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Herbst</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Sommer</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Winter</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="D">
-      <div class="q-num">S36 — Februar hangi mevsime aittir?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Sommer</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Frühling</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Herbst</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Winter</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="A">
-      <div class="q-num">S37 — April hangi mevsime aittir?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Frühling</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Winter</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Sommer</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Herbst</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="B">
-      <div class="q-num">S38 — Oktober hangi mevsime aittir?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Frühling</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Herbst</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Sommer</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Winter</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="Sommer">
-      <div class="q-num">S39 — Juni, Juli, August → hangi mevsim?</div>
-      <input class="fill-input wide" placeholder="Mevsimi Almanca yaz..." data-answer="Sommer">
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="fill" data-answer="Winter">
-      <div class="q-num">S40 — Dezember, Januar, Februar → hangi mevsim?</div>
-      <input class="fill-input wide" placeholder="Mevsimi Almanca yaz..." data-answer="Winter">
-      <div class="q-feedback"></div>
-    </div>
-
-  </div>
-  <div class="submit-area">
-    <button class="btn-check" onclick="checkSection('season')">Bu bölümü kontrol et</button>
-    <button class="btn-reset" onclick="resetSection('season')">Sıfırla</button>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════
-     BÖLÜM 7 — PARAGRAFTAN ANLAMA (Seyahat / Geçmiş Zaman)
-     ═══════════════════════════════════════════ -->
-<div class="section-block">
-  <div class="section-header">
-    <span class="section-badge">Bölüm 7</span>
-    <h2>Paragraftan Anlama</h2>
-    <span class="pts">6 soru · 12 puan</span>
-  </div>
-
-  <div class="reading-text">
-    <h3>📖 Okuma Metni: Meine Reise nach Wien</h3>
-    <p>
-      Letzten Sommer bin ich mit meiner Freundin Aylin nach Wien geflogen. Wir sind im Juli gefahren und haben eine Woche dort verbracht. Das Wetter war wunderbar — jeden Tag schien die Sonne. Wir haben das Schloss Schönbrunn besucht und viele Fotos gemacht. Am dritten Tag haben wir eine Bootsfahrt auf der Donau gemacht. Das war sehr schön! Abends sind wir in ein kleines Restaurant gegangen und haben Wiener Schnitzel gegessen. Es hat uns sehr gut geschmeckt. Leider hatten wir keine Zeit für die Oper, aber wir haben klassische Musik in einem Park gehört. Am letzten Tag haben wir viele Souvenirs gekauft. Wien war wirklich eine tolle Stadt — ich möchte bald wieder dorthin reisen.
-    </p>
-  </div>
-
-  <div class="questions-wrap" id="read-wrap">
-
-    <div class="q-item" data-type="mc" data-answer="B">
-      <div class="q-num">S41 — Yazar Viyana'ya ne zaman gitmiştir?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Geçen kış</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Geçen yaz, Temmuz'da</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> İlkbaharda</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Sonbaharda</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="C">
-      <div class="q-num">S42 — Yazar üçüncü gün ne yaptı?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Opera dinledi</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Alışveriş yaptı</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Tuna'da tekne gezisi yaptı</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Schönbrunn Sarayı'nı ziyaret etti</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="A">
-      <div class="q-num">S43 — Yazar akşam yemeğinde ne yedi?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Wiener Schnitzel</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Pizza</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Döner</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Suppe</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="D">
-      <div class="q-num">S44 — Operaya gidememediklerinin nedeni nedir?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Bilet bulamadılar</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Hava kötüydü</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Para yoktu</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Zamanları yoktu</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="B">
-      <div class="q-num">S45 — "bin ich geflogen" cümlesinde hangi zaman kullanılmıştır?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Präsens</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Perfekt</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Präteritum</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Futur</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="C">
-      <div class="q-num">S46 — "fliegen" fiili Perfekt'te neden "sein" alır?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Düzenli bir fiil olduğu için</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Ayrılabilen bir fiil olduğu için</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Yer değişikliği / hareket bildiren bir fiil olduğu için</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Modal fiil olduğu için</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-  </div>
-  <div class="submit-area">
-    <button class="btn-check" onclick="checkSection('read')">Bu bölümü kontrol et</button>
-    <button class="btn-reset" onclick="resetSection('read')">Sıfırla</button>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════
-     BÖLÜM 8 — DİNLEME (Geçmiş Zaman Ağırlıklı)
-     ═══════════════════════════════════════════ -->
-<div class="section-block">
-  <div class="section-header">
-    <span class="section-badge">Bölüm 8</span>
-    <h2>🎧 Dinleme Sınavı</h2>
-    <span class="pts">5 soru · 10 puan</span>
-  </div>
-
-  <div class="theory-box">
-    <h3>📢 Nasıl çalışır?</h3>
-    <p><strong>▶ Metni Dinle</strong> butonuna tıkla. İstersen birden fazla kez dinleyebilirsin. Ardından soruları cevapla.</p>
-  </div>
-
-  <div id="listen-text" style="display:none;">
-    Hallo, ich bin Kemal. Letztes Wochenende habe ich einen Ausflug nach Hamburg gemacht.
-    Am Samstag bin ich um acht Uhr morgens mit dem Zug abgefahren. Die Fahrt hat zwei Stunden gedauert.
-    In Hamburg habe ich zuerst den Hafen besucht. Das war wirklich beeindruckend.
-    Danach habe ich in einem kleinen Café Kaffee getrunken und ein Stück Kuchen gegessen.
-    Am Nachmittag war ich im Museum. Ich habe viele interessante Dinge gesehen.
-    Abends bin ich ins Restaurant gegangen und habe Fischsuppe bestellt. Sie hat sehr gut geschmeckt.
-    Am Sonntag hatte ich leider keine Zeit mehr. Ich bin früh zurückgefahren.
-    Der Ausflug war wunderbar. Ich möchte bald wieder nach Hamburg fahren.
-  </div>
-
-  <div class="listen-controls">
-    <button class="btn-check" id="btn-listen" onclick="playListenText()">▶ Metni Dinle</button>
-    <button class="btn-reset" id="btn-stop" onclick="stopListenText()" disabled>⏹ Durdur</button>
-  </div>
-  <div id="listen-status"></div>
-
-  <div class="questions-wrap" id="listen-wrap">
-
-    <div class="q-item" data-type="mc" data-answer="B">
-      <div class="q-num">S47 — Kemal nereye gezi yaptı?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Berlin</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Hamburg</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Münih</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Frankfurt</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="A">
-      <div class="q-num">S48 — Kemal sabah saat kaçta hareket etti?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> 08:00</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> 07:00</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> 09:00</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> 06:30</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="C">
-      <div class="q-num">S49 — Kemal öğleden sonra nereye gitti?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Limana</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Kafeye</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Müzeye</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Lokantaya</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="D">
-      <div class="q-num">S50 — Kemal akşam yemeğinde ne yedi?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Schnitzel</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Pizza</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Hamburger</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Fischsuppe</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-    <div class="q-item" data-type="mc" data-answer="B">
-      <div class="q-num">S51 — "Ich bin früh zurückgefahren." cümlesinde hangi zaman kullanılmıştır?</div>
-      <div class="mc-options">
-        <div class="mc-option" data-val="A"><span class="mc-letter">A</span> Präteritum</div>
-        <div class="mc-option" data-val="B"><span class="mc-letter">B</span> Perfekt</div>
-        <div class="mc-option" data-val="C"><span class="mc-letter">C</span> Präsens</div>
-        <div class="mc-option" data-val="D"><span class="mc-letter">D</span> Futur</div>
-      </div>
-      <div class="q-feedback"></div>
-    </div>
-
-  </div>
-  <div class="submit-area">
-    <button class="btn-check" onclick="checkSection('listen')">Bu bölümü kontrol et</button>
-    <button class="btn-reset" onclick="resetSection('listen')">Sıfırla</button>
-  </div>
-</div>
-
-
-<!-- SONUÇ -->
-<div class="final-btns">
-  <button class="btn-final" onclick="finalSubmit()">🎯 Tüm Sınavı Değerlendir</button>
-  <button class="btn-reset-all" onclick="resetAll()">🔄 Sıfırla</button>
-</div>
-
-<div id="result-panel">
-  <div class="result-trophy">🏆</div>
-  <h2>Sınav Sonucu</h2>
-  <div class="result-score" id="result-pct">—</div>
-  <div class="result-msg" id="result-msg"></div>
-  <div class="result-breakdown" id="result-breakdown"></div>
-</div>
-
-</main>
-
-<script src="script.js"></script>
 </body>
+
 </html>
